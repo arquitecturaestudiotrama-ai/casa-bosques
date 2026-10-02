@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Casa Bosques, vivienda en Barrio Bosques, Pinamar. Proyecto de DFS Studio Arq & Design.">
+<meta name="theme-color" content="#0B0B0B">
+<meta property="og:title" content="Casa Bosques · DFS Studio">
+<meta property="og:description" content="Vivienda en Barrio Bosques, Pinamar. Exteriores, planta, interiores y alternativa con garaje cerrado.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="img/logo.png">
+<link rel="apple-touch-icon" href="img/logo.png">
+<title>Casa Bosques</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap">
+<style>
+/* Layout: una sola columna vertical, fotos de borde a borde dentro del margen, navegación fija por secciones */
+:root{
+  --bg:#0B0B0B;
+  --fg:#F4F2EE;
+  --muted:#8C8A85;
+  --line:#262523;
+  --chip:#171716;
+  --font:'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0}
+html{scroll-behavior:smooth;background:var(--bg)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding-inline:16px;padding-block:0 48px}
+img{max-width:100%;display:block}
+
+header.intro{display:flex;flex-direction:column;gap:20px;padding-block:28px 24px}
+.logo{width:88px;height:88px;margin-left:-6px;mix-blend-mode:lighten}
+h1{font-size:40px;font-weight:600;letter-spacing:-.5px;line-height:1.05;margin:0;text-wrap:balance}
+.lugar{margin:0;font-size:15px;font-weight:300;letter-spacing:1.5px}
+.estudio{margin:0;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
+
+nav.secciones{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);margin-inline:-16px;padding:10px 16px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+nav.secciones::-webkit-scrollbar{display:none}
+nav.secciones ul{list-style:none;margin:0;padding:0;display:flex;gap:8px;white-space:nowrap}
+nav.secciones a{display:block;padding:7px 14px;border-radius:999px;background:var(--chip);color:var(--fg);text-decoration:none;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;border:1px solid var(--line)}
+nav.secciones a.activa{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+nav.secciones a:focus-visible,.foto:focus-visible,.visor button:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+
+section{display:flex;flex-direction:column;gap:28px;padding-block:40px 8px;scroll-margin-top:56px}
+.eyebrow{margin:0;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--muted)}
+h2{margin:0;font-size:24px;font-weight:500;letter-spacing:.3px}
+.cab{display:flex;flex-direction:column;gap:6px}
+
+figure{margin:0;display:flex;flex-direction:column;gap:10px}
+.foto{padding:0;border:0;background:none;cursor:zoom-in;display:block;width:100%}
+.foto img{width:100%;height:auto;aspect-ratio:1706/922;object-fit:cover;background:var(--chip)}
+.foto.plano img{aspect-ratio:914/1721;object-fit:contain}
+figcaption{display:flex;flex-direction:column;gap:2px}
+figcaption b{font-weight:500;font-size:15px}
+figcaption span{color:var(--muted);font-size:13px;font-weight:300}
+.pista{margin:0;font-size:12px;color:var(--muted)}
+
+.bajada{margin:4px 0 0;font-size:14px;font-weight:300;color:var(--muted)}
+footer{display:flex;flex-direction:column;align-items:center;gap:18px;padding-block:72px 24px;text-align:center}
+footer .logo{width:120px;height:120px;margin:0}
+footer p{margin:0;font-size:22px;font-weight:300;letter-spacing:8px;text-transform:uppercase}
+
+.visor{position:fixed;inset:0;z-index:20;background:var(--bg);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.visor .barra{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;gap:12px}
+.visor .contador{font-size:12px;letter-spacing:2px;color:var(--muted);font-variant-numeric:tabular-nums}
+.visor .titulo{font-size:13px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.visor button{background:var(--chip);color:var(--fg);border:1px solid var(--line);border-radius:999px;font:inherit;font-size:13px;padding:8px 14px;cursor:pointer}
+.visor .lienzo{flex:1;min-height:0;overflow:auto;display:flex;align-items:center;justify-content:center;touch-action:pan-x pan-y pinch-zoom}
+.visor .lienzo img{max-width:100%;max-height:100%;object-fit:contain}
+.visor .pie{display:flex;justify-content:space-between;padding:12px 16px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="intro">
+    <img class="logo" src="img/logo.png" alt="DFS Studio, Arq &amp; Design">
+    <h1>Casa Bosques</h1>
+    <p class="lugar">Barrio Bosques · Pinamar</p>
+    <p class="estudio">Proyecto de DFS Studio</p>
+  </header>
+
+  <nav class="secciones" aria-label="Secciones">
+    <ul>
+      <li><a href="#exterior">Exterior</a></li>
+      <li><a href="#planta">Planta</a></li>
+      <li><a href="#interior">Interior</a></li>
+      <li><a href="#galeria">Galería</a></li>
+      <li><a href="#dormitorio">Dormitorio</a></li>
+      <li><a href="#alternativa">Alternativa</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section id="exterior">
+      <div class="cab"><p class="eyebrow">Exterior</p><h2>La casa en el bosque</h2></div>
+      <figure><button class="foto" type="button"><img src="img/ext_frente.jpg" alt="Fachada de acceso de la casa entre pinos"></button>
+        <figcaption><b>Fachada de acceso</b><span>Losa de hormigón visto, madera vertical y muro de piedra en el ingreso.</span></figcaption></figure>
+      <figure><button class="foto" type="button"><img src="img/ext_general.jpg" alt="Vista general desde el jardín con la pileta"></button>
+        <figcaption><b>Vista desde el jardín</b><span>La planta en L abraza el jardín y la pileta.</span></figcaption></figure>
+      <figure><button class="foto" type="button"><img src="img/ext_pileta.jpg" alt="Pileta elevada y deck de madera"></button>
+        <figcaption><b>Pileta y deck</b><span>Pileta elevada con borde de hormigón y deck de madera.</span></figcaption></figure>
+      <figure><button class="foto" type="button"><img src="img/ext_deck.jpg" alt="Deck que conecta la pileta con la galería"></button>
+        <figcaption><b>Galería y deck</b><span>El deck lleva de la pileta a la galería semicubierta.</span></figcaption></figure>
+    </section>
+
+    <section id="planta">
+      <div class="cab"><p class="eyebrow">Planta</p><h2>Planta baja</h2></div>
+      <figure><button class="foto plano" type="button"><img src="img/plano.jpg" alt="Planta baja de la vivienda en escala de grises"></button>
+        <figcaption><b>Planta baja</b><span>Ala de dormitorios, zona social, galería con parrilla, patio interno y cochera.</span></figcaption></figure>
+      <p class="pista">Tocá cualquier imagen para verla en pantalla completa y hacer zoom.</p>
+    </section>
+
+    <section id="interior">
+      <div class="cab"><p class="eyebrow">Interior</p><h2>Cocina, comedor y living</h2></div>
+      <figure><button class="foto" type="button"><img src="img/cocina.jpg" alt="Cocina con isla y mesa de comedor"></button>
+        <figcaption><b>Cocina</b><span>Cocina integrada con isla y cielorraso de hormigón visto.</span></figcaption></figure>
+      <figure><button class="foto" type="button"><img src="img/comedor.jpg" alt="Comedor con vista al living y la chimenea"></button>
+        <figcaption><b>Comedor</b><span>Carpinterías de piso a techo hacia el bosque.</span></figcaption></figure>
+      <figure><button class="foto" type="button"><img src="img/living.jpg" alt="Living con estufa a leña y muro de piedra"></button>
+        <figcaption><b>Living</b><span>Estufa a leña sobre muro de piedra, abierto a la galería.</span></figcaption></figure>
+    </section>
+
+    <section id="galeria">
+      <div class="cab"><p class="eyebrow">Galería</p><h2>Galería con parrilla</h2></div>
+      <figure><button class="foto" type="button"><img src="img/galeria.jpg" alt="Galería con parrilla, barra y mesa"></button>
+        <figcaption><b>Parrilla y barra</b><span>Extensión del comedor hacia el exterior.</span></figcaption></figure>
+    </section>
+
+    <section id="dormitorio">
+      <div class="cab"><p class="eyebrow">Dormitorio</p><h2>Dormitorio principal</h2></div>
+      <figure><button class="foto" type="button"><img src="img/dorm_cama.jpg" alt="Dormitorio principal con vista al jardín"></button>
+        <figcaption><b>Dormitorio principal</b><span>Con ventanal al jardín y baño en suite.</span></figcaption></figure>
+      <figure><button class="foto" type="button"><img src="img/dorm_bano.jpg" alt="Dormitorio con acceso al baño en suite"></button>
+        <figcaption><b>Baño en suite</b><span>Mueble de madera y espejo retroiluminado.</span></figcaption></figure>
+    </section>
+
+    <section id="alternativa">
+      <div class="cab"><p class="eyebrow">Alternativa</p><h2>Garaje cerrado</h2><p class="bajada">Con portón y revestimiento en acero corten.</p></div>
+      <figure><button class="foto" type="button"><img src="img/alt_frente.jpg" alt="Fachada con el garaje cerrado revestido en acero corten"></button>
+        <figcaption><b>Fachada de acceso</b><span>El volumen del garaje se cierra con un portón revestido en acero corten.</span></figcaption></figure>
+      <figure><button class="foto" type="button"><img src="img/alt_34.jpg" alt="Vista en escorzo con el volumen de acero corten"></button>
+        <figcaption><b>Vista en escorzo</b><span>El acero corten se continúa sobre el lateral de la casa.</span></figcaption></figure>
+      <figure><button class="foto" type="button"><img src="img/alt_acceso.jpg" alt="Acceso con puerta de madera junto al portón de acero corten"></button>
+        <figcaption><b>Acceso y portón</b><span>Puerta de madera junto al portón de acero corten.</span></figcaption></figure>
+      <figure><button class="foto plano" type="button"><img src="img/alt_plano.jpg" alt="Planta baja de la alternativa con garaje cerrado"></button>
+        <figcaption><b>Planta baja · garaje cerrado</b><span>Planta de la alternativa con el garaje cerrado.</span></figcaption></figure>
+    </section>
+  </main>
+
+  <footer>
+    <img class="logo" src="img/logo.png" alt="DFS Studio, Arq &amp; Design">
+    <p>Gracias</p>
+  </footer>
+</div>
+
+<div class="visor" id="visor" hidden role="dialog" aria-modal="true" aria-label="Imagen en pantalla completa">
+  <div class="barra"><span class="contador" id="contador"></span><span class="titulo" id="vtitulo"></span><button type="button" id="cerrar">Cerrar</button></div>
+  <div class="lienzo" id="lienzo"><img id="vimg" alt=""></div>
+  <div class="pie"><button type="button" id="ant">Anterior</button><button type="button" id="sig">Siguiente</button></div>
+</div>
+
+<script>
+(function(){
+  var botones=[].slice.call(document.querySelectorAll('.foto'));
+  var visor=document.getElementById('visor'),vimg=document.getElementById('vimg'),cont=document.getElementById('contador'),vt=document.getElementById('vtitulo');
+  var i=0,ultimo=null;
+  function mostrar(n){
+    i=(n+botones.length)%botones.length;
+    var img=botones[i].querySelector('img');
+    vimg.src=img.src; vimg.alt=img.alt;
+    var b=botones[i].parentNode.querySelector('figcaption b');
+    vt.textContent=b?b.textContent:'';
+    cont.textContent=(i+1<10?'0':'')+(i+1)+' / '+(botones.length<10?'0':'')+botones.length;
+  }
+  function abrir(n){ultimo=botones[n];mostrar(n);visor.hidden=false;document.body.style.overflow='hidden';document.getElementById('cerrar').focus();}
+  function cerrar(){visor.hidden=true;document.body.style.overflow='';if(ultimo)ultimo.focus();}
+  botones.forEach(function(b,n){b.addEventListener('click',function(){abrir(n)})});
+  document.getElementById('cerrar').addEventListener('click',cerrar);
+  document.getElementById('ant').addEventListener('click',function(){mostrar(i-1)});
+  document.getElementById('sig').addEventListener('click',function(){mostrar(i+1)});
+  document.addEventListener('keydown',function(e){
+    if(visor.hidden)return;
+    if(e.key==='Escape')cerrar();
+    if(e.key==='ArrowRight')mostrar(i+1);
+    if(e.key==='ArrowLeft')mostrar(i-1);
+  });
+  var x0=null;
+  var lienzo=document.getElementById('lienzo');
+  lienzo.addEventListener('touchstart',function(e){x0=e.touches.length===1?e.touches[0].clientX:null},{passive:true});
+  lienzo.addEventListener('touchend',function(e){
+    if(x0===null||(window.visualViewport&&window.visualViewport.scale>1.05))return;
+    var dx=e.changedTouches[0].clientX-x0; if(Math.abs(dx)>50)mostrar(dx<0?i+1:i-1); x0=null;
+  });
+  // resaltar la sección visible en la navegación
+  var links=[].slice.call(document.querySelectorAll('nav.secciones a'));
+  if('IntersectionObserver' in window){
+    var obs=new IntersectionObserver(function(ents){
+      ents.forEach(function(en){ if(en.isIntersecting){
+        links.forEach(function(a){
+          var on=a.getAttribute('href')==='#'+en.target.id; a.classList.toggle('activa',on);
+          if(on&&a.scrollIntoView){var nav=a.closest('nav');nav.scrollTo({left:a.offsetLeft-16,behavior:'smooth'});}
+        });
+      }});
+    },{rootMargin:'-45% 0px -50% 0px'});
+    document.querySelectorAll('main section').forEach(function(s){obs.observe(s)});
+  }
+})();
+</script>
+</body>
+</html>
